@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Greeting> call, Response<Greeting> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Greeting greeting = response.body();
-                    Log.d("MainActivitity", "Greeting: " + greeting.getContent());
+                    Log.d("MainActivity", "Greeting: " + greeting.getContent());
                 } else {
                     Log.e("MainActivity", "Response error: " + response.code());
                 }
