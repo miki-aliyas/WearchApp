@@ -1,5 +1,7 @@
 package com.example.wearchapp.ui.topbar;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -11,6 +13,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.wearchapp.R;
 
 public class TopBarActivity extends AppCompatActivity {
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, TopBarActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

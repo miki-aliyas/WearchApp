@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wearchapp.R;
 import com.example.wearchapp.ui.main.MainFragment;
+import com.example.wearchapp.ui.topbar.TopBarActivity;
 
 import java.util.Random;
 
@@ -27,9 +28,14 @@ public class TopActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        findViewById(R.id.button01).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = TopBarActivity.newIntent(TopActivity.this);
+               startActivity(intent);
+            }
+        });
+
     }
-    public void clicked(View v) {
-        Intent intent = new Intent(this, MainFragment.class);
-        intent.putExtra(MainFragment.KEY_RESULT_ID, resultId);
-        startActivity(intent);
 }
