@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
 
 import com.example.wearchapp.R;
+import com.example.wearchapp.ui.main.MainFragment;
 
 public class TopBarActivity extends AppCompatActivity {
 
@@ -28,5 +30,10 @@ public class TopBarActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Fragment fragment = MainFragment.newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.container, fragment)
+                .commitNow();
     }
 }
