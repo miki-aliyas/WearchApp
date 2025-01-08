@@ -17,7 +17,10 @@ import java.util.List;
 public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.CarouselViewHolder> {
 
     private List<String> imageUrls;
-
+    private CarouselAdapterListener listener;
+    public interface CarouselAdapterListener {
+        void onClickCarouselItem();
+    }
     public CarouselAdapter(List<String> imageUrls) {
         this.imageUrls = imageUrls;
     }
@@ -37,11 +40,36 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.Carous
         Glide.with(holder.itemView.getContext())
                 .load(resId)
                 .into(holder.imageView);
+        holder.imageView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onClickCarouselItem();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return imageUrls.size();
+    }
+
+    public String getImageUrl(int position) {
+        if (imageUrls.size() > position) {
+            return imageUrls.get(position);
+        }
+    //   取得できなかった場合は空文字を返す。
+        return "";
+    }
+
+    public void setImageUrl(String imageUrl, int position) {
+        if (imageUrls.size() > position) {
+            imageUrls.set(position, imageUrl);
+        } else {
+            imageUrls.add(imageUrl);
+        }
+    }
+
+    public void setListener(CarouselAdapterListener listener) {
+        this.listener = listener;
     }
 
     static class CarouselViewHolder extends RecyclerView.ViewHolder {
