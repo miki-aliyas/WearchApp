@@ -1,4 +1,5 @@
 package com.example.wearchapp.ui.main;
+//  ViewPager2 を使用してカルーセル表示を行い、自動スクロール機能を実装
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,29 +24,28 @@ import com.example.wearchapp.ui.topbar.TopBarActivity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-
 public class MainFragment extends Fragment {
 
-    private static final String TAG = MainFragment.class.getSimpleName();
-    private static final long DISPLAY_TIME = 3000L;
-    private MainViewModel viewModel;
-    private ViewPager2 viewPager;
-    private final List<View> pointerList = new ArrayList<>();
-    private CarouselAdapter carouselAdapter;
-    private Runnable runnable;
-    private final Handler handler = new Handler();
-    private int currentPage = 0;
+    private static final String TAG = MainFragment.class.getSimpleName();   //  ログ出力用のタグ
+    private static final long DISPLAY_TIME = 3000L; //  カルーセルの表示時間（ミリ秒）
+    private MainViewModel viewModel;    //  MainViewModel のインスタンス
+    private ViewPager2 viewPager;   //  カルーセルを表示する
+    private final List<View> pointerList = new ArrayList<>();   //  カルーセルのポイント（ドット）ビューのリスト
+    private CarouselAdapter carouselAdapter;    //  カルーセル表示を行うためのアダプタ
+    private Runnable runnable;  //  自動スクロールを実行するためのオブジェクト
+    private final Handler handler = new Handler();  //  Runnable の実行を管理するためのオブジェクト
+    private int currentPage = 0;    //  現在のページを保持するための変数
 
     public static Fragment newInstance() {
         return new MainFragment();
     }
-
+    //  フラグメントのビューを作成する
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
-
+    //  フラグメントのビューを作成後に呼び出されるメソッド
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -54,16 +54,16 @@ public class MainFragment extends Fragment {
         // ViewPagerの取得
         viewPager =view.findViewById(R.id.viewPager);
 
-        // カルーセルポイントView取得
+        // カルーセルポイントView取得しpointerListに追加
         pointerList.add(view.findViewById(R.id.pointer_first));
         pointerList.add(view.findViewById(R.id.pointer_second));
         pointerList.add(view.findViewById(R.id.pointer_third));
     }
-
+    //  フラグメントが再開されたときに呼び出されるメソッド
     @Override
     public void onResume() {
         super.onResume();
-        startAutoScroll();
+        startAutoScroll();  //  自動スクロールを開始するメソッドの呼び出し
     }
     // ViewModelの設定
     private void settingViewModel() {
@@ -71,10 +71,9 @@ public class MainFragment extends Fragment {
     //  LiveDateの監視設定
 
     }
-
     // カルーセル設定
     private void carouselSettings(Consumer<Integer> consumer) {
-        if (viewPager == null) {
+        if (viewPager == null) {    // null である場合、警告ログを出力して終了
             Log.w(TAG,"viewPager is null");
             return;
         }
@@ -82,7 +81,7 @@ public class MainFragment extends Fragment {
         carouselAdapter.setListener(() ->{
             // TODO: 未実装
         });
-        viewPager.setAdapter(carouselAdapter);
+        viewPager.setAdapter(carouselAdapter);  // アダプタをセットしページ変更コールバックを登録
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -93,7 +92,7 @@ public class MainFragment extends Fragment {
     }
     // 自動スクロール取得
     private void startAutoScroll() {
-        runnable = new Runnable() {
+        runnable = new Runnable() { // runnableを定義
             @Override
             public void run() {
                 handler.removeCallbacks(this);
@@ -105,6 +104,6 @@ public class MainFragment extends Fragment {
             }
         };
         currentPage++;
-        handler.postDelayed(runnable, DISPLAY_TIME);
+        handler.postDelayed(runnable, DISPLAY_TIME);    // handlerを使用してDISPLAY_TIME毎にページをスクロールする
     }
 }

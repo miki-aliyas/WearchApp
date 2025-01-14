@@ -1,5 +1,5 @@
 package com.example.wearchapp.ui.main.adapter;
-
+//  RecyclerViewを使用してカルーセル表示する
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,18 +13,20 @@ import com.bumptech.glide.Glide;
 import com.example.wearchapp.R;
 
 import java.util.List;
-
 public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.CarouselViewHolder> {
 
-    private List<String> imageUrls;
-    private CarouselAdapterListener listener;
+    private List<String> imageUrls; // 画像のURLリスト
+    private CarouselAdapterListener listener;  // クリックイベントのリスナー
+    // クリックイベントをリスンするためのインターフェースを定義
     public interface CarouselAdapterListener {
         void onClickCarouselItem();
     }
+    // コンストラクター: 画像URLのリストの初期化
     public CarouselAdapter(List<String> imageUrls) {
         this.imageUrls = imageUrls;
     }
 
+    // RecyclerViewのViewHolderを作成するメソッド
     @NonNull
     @Override
     public CarouselViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,34 +34,35 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.Carous
         return new CarouselViewHolder(view);
     }
 
+    // ViewHolderにデータをバインド、画像を表示後、クリックイベントを設定するメソッド
     @Override
     public void onBindViewHolder(@NonNull CarouselAdapter.CarouselViewHolder holder, int position) {
-        String imageName = imageUrls.get(position);
-        Context context = holder.itemView.getContext();
-        int resId = context.getResources().getIdentifier(imageName, "drawble", context.getPackageName());
+        String imageName = imageUrls.get(position); // 現在の画像名を取得
+        Context context = holder.itemView.getContext(); // コンテキストを取得
+        int resId = context.getResources().getIdentifier(imageName, "drawble", context.getPackageName());   // 画像リソースIDを取得
         Glide.with(holder.itemView.getContext())
                 .load(resId)
-                .into(holder.imageView);
+                .into(holder.imageView);    // 画像をImageViewにセット
         holder.imageView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onClickCarouselItem();
+                listener.onClickCarouselItem(); // クリックイベントをリスナーに伝える
             }
         });
     }
-
+    // アダプタのアイテム数を返すメソッド
     @Override
     public int getItemCount() {
         return imageUrls.size();
     }
-
+    // 指定位置の画像URLを返すメソッド
     public String getImageUrl(int position) {
         if (imageUrls.size() > position) {
             return imageUrls.get(position);
         }
-    //   取得できなかった場合は空文字を返す。
+    //　取得できなかった場合は空文字を返す
         return "";
     }
-
+    // 指定位置に画像URLを設定するメソッド
     public void setImageUrl(String imageUrl, int position) {
         if (imageUrls.size() > position) {
             imageUrls.set(position, imageUrl);
@@ -67,11 +70,11 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.Carous
             imageUrls.add(imageUrl);
         }
     }
-
+    // クリックイベントのリスナーを設定するメソッド
     public void setListener(CarouselAdapterListener listener) {
         this.listener = listener;
     }
-
+    //  画像を表示するためのビューを保持
     static class CarouselViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
 
