@@ -11,6 +11,7 @@ import com.example.wearchapp.date.model.Greeting;
 import com.example.wearchapp.date.repository.GreetingRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainViewModel extends ViewModel {
@@ -34,6 +35,7 @@ public class MainViewModel extends ViewModel {
             Log.e("error", "GreetingRepository in null");
             return;
         }
+
     //  メソッドを呼び出して、非同期で挨拶データを取得
         greetingRepository.getGreeting(new GreetingRepository.GreetingRepositoryCallback() {
             @Override   //  データ取得成功の場合はcontentに取得したGreetingオブジェクトを設定
@@ -47,5 +49,21 @@ public class MainViewModel extends ViewModel {
                 Log.e("TAG", "onError: " + error);
             }
         });
+    }
+
+    public void loadCategoryList() {
+        //TODO: カテゴリリストを取得するメソッドを実装
+        if (greetingRepository == null) {   //  nullの場合はエラーログを出力して終了
+            Log.e("error", "GreetingRepository in null");
+            return;
+        }
+        List<Category> date = Arrays.asList(
+                new Category( "frame_1"),
+                new Category( "frame_2"),
+                new Category( "frame_3"),
+                new Category( "frame_4"),
+                new Category( "frame_5")
+        );
+        categoryList.setValue(date);
     }
 }

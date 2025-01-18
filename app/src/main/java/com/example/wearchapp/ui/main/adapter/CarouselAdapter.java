@@ -39,7 +39,7 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.Carous
     public void onBindViewHolder(@NonNull CarouselAdapter.CarouselViewHolder holder, int position) {
         String imageName = imageUrls.get(position); // 現在の画像名を取得
         Context context = holder.itemView.getContext(); // コンテキストを取得
-        int resId = context.getResources().getIdentifier(imageName, "drawble", context.getPackageName());   // 画像リソースIDを取得
+        int resId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());   // 画像リソースIDを取得
         Glide.with(holder.itemView.getContext())
                 .load(resId)
                 .into(holder.imageView);    // 画像をImageViewにセット

@@ -1,5 +1,5 @@
 package com.example.wearchapp.date.model;
-
+//POJO
 public class Category {
     private String path;
 
