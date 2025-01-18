@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.wearchapp.R;
@@ -32,6 +33,7 @@ public class MainFragment extends Fragment {
     private static final long DISPLAY_TIME = 3000L; //  カルーセルの表示時間（ミリ秒）
     private MainViewModel viewModel;    //  MainViewModel のインスタンス
     private ViewPager2 viewPager;   //  カルーセルを表示する
+    private RecyclerView recyclerView;  //  カテゴリリストを表示する
     private final List<View> pointerList = new ArrayList<>();   //  カルーセルのポイント（ドット）ビューのリスト
     private CarouselAdapter carouselAdapter;    //  カルーセル表示を行うためのアダプタ
     private Runnable runnable;  //  自動スクロールを実行するためのオブジェクト
@@ -57,6 +59,9 @@ public class MainFragment extends Fragment {
 
         // ViewPagerの取得
         viewPager =view.findViewById(R.id.viewPager);
+
+        // RecyclerViewの取得
+        recyclerView = view.findViewById(R.id.recyclerView);
 
         // カルーセル設定
         carouselSettings(position -> {
