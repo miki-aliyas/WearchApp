@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -21,10 +22,12 @@ import com.example.wearchapp.R;
 import com.example.wearchapp.date.model.Category;
 import com.example.wearchapp.ui.detail.DetailFragment;
 import com.example.wearchapp.ui.main.adapter.CarouselAdapter;
+import com.example.wearchapp.ui.main.adapter.RecommendationAdapter;
 import com.example.wearchapp.ui.top.TopActivity;
 import com.example.wearchapp.ui.topbar.TopBarActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 public class MainFragment extends Fragment {
@@ -33,9 +36,13 @@ public class MainFragment extends Fragment {
     private static final long DISPLAY_TIME = 3000L; //  カルーセルの表示時間（ミリ秒）
     private MainViewModel viewModel;    //  MainViewModel のインスタンス
     private ViewPager2 viewPager;   //  カルーセルを表示する
-    private RecyclerView recyclerView;  //  カテゴリリストを表示する
     private final List<View> pointerList = new ArrayList<>();   //  カルーセルのポイント（ドット）ビューのリスト
     private CarouselAdapter carouselAdapter;    //  カルーセル表示を行うためのアダプタ
+    private static final int CARD_WIDTH_DP = 140;   // カードの横幅（dp）
+    private static final int CARD_HEIGHT_DP = 140;  // カードの縦幅（dp）
+    private static final List<Integer> INT_DATA_LIST = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);   // カテゴリリストのデータ
+    private RecyclerView recyclerView;  //  カテゴリリストを表示する
+    private RecommendationAdapter adapter;  //  カテゴリリストを表示するためのアダプタ
     private Runnable runnable;  //  自動スクロールを実行するためのオブジェクト
     private final Handler handler = new Handler();  //  Runnable の実行を管理するためのオブジェクト
     private int currentPage = 0;    //  現在のページを保持するための変数
@@ -60,12 +67,13 @@ public class MainFragment extends Fragment {
         // ViewPagerの取得
         viewPager =view.findViewById(R.id.viewPager);
 
-        // RecyclerViewの取得
+        // XMLレイアウトのIDからRecyclerViewの取得
         recyclerView = view.findViewById(R.id.recyclerView);
 
         // カルーセル設定
         carouselSettings(position -> {
             clearPointer();
+
         // ポインターの位置を設定(画像が5つの場合限定)
             int pointerPosition = 0;
             if (0 <= position && position <=1 ) {
@@ -77,6 +85,9 @@ public class MainFragment extends Fragment {
             }
             pointerList.get(pointerPosition).setBackgroundResource(R.drawable.circle_on_shape);
         });
+
+        // RecyclerView設定
+        recyclerViewSettings();
 
         // カルーセルポイントView取得しpointerListに追加
         pointerList.add(view.findViewById(R.id.pointer_first));
@@ -100,6 +111,7 @@ public class MainFragment extends Fragment {
     // ViewModelの設定
     private void settingViewModel() {
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
         //  LiveDateの監視設定
         viewModel.getCategoryList().observe(requireActivity(), new Observer<List<Category>>() {
 
@@ -136,6 +148,23 @@ public class MainFragment extends Fragment {
             }
         });
     }
+    // LayoutManagerを作成し、RecyclerViewに設定
+    private void recyclerViewSettings(){
+        GridLayoutManager layoutManager = new GridLayoutManager(
+                requireContext(),
+                2,
+                GridLayoutManager.VERTICAL,
+                false
+        );
+        float dp = getResources().getDisplayMetrics().density;
+        // Adapterの生成（インスタンス化）
+        adapter = new RecommendationAdapter(INT_DATA_LIST, (int)(CARD_WIDTH_DP * dp), (int)(CARD_HEIGHT_DP * dp));
+        // RecyclerViewにAdapterを設定
+        recyclerView.setAdapter(adapter);
+        // RecyclerViewにLayoutManagerを設定
+        recyclerView.setLayoutManager(layoutManager);
+    }
+
     // 自動スクロール取得
     private void startAutoScroll() {
         runnable = new Runnable() { // runnableを定義
