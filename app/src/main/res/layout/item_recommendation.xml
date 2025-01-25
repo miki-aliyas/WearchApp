@@ -5,6 +5,7 @@
     android:id="@+id/recommendation_card"
     android:layout_width="136dp"
     android:layout_height="136dp"
+    android:background="#EDE9E9"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
