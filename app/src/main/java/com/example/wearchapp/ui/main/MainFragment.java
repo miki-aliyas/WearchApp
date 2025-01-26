@@ -74,15 +74,8 @@ public class MainFragment extends Fragment {
         carouselSettings(position -> {
             clearPointer();
 
-        // ポインターの位置を設定(画像が5つの場合限定)
-            int pointerPosition = 0;
-            if (0 <= position && position <=1 ) {
-
-            }else if (3 <= position && position <= 4) {
-                pointerPosition = 2;
-            }else {
-                pointerPosition = 1;
-            }
+        // ポインターの位置を設定
+            int pointerPosition = position;
             pointerList.get(pointerPosition).setBackgroundResource(R.drawable.circle_on_shape);
         });
 
@@ -93,6 +86,8 @@ public class MainFragment extends Fragment {
         pointerList.add(view.findViewById(R.id.pointer_first));
         pointerList.add(view.findViewById(R.id.pointer_second));
         pointerList.add(view.findViewById(R.id.pointer_third));
+        pointerList.add(view.findViewById(R.id.pointer_fourth));
+        pointerList.add(view.findViewById(R.id.pointer_fifth));
     }
     //  フラグメントが再開されたときに呼び出されるメソッド
     @Override
