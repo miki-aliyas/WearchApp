@@ -12,9 +12,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.wearchapp.R;
+import com.example.wearchapp.date.model.Category;
 import com.example.wearchapp.ui.main.MainFragment;
 
-public class TopBarActivity extends AppCompatActivity {
+public class TopBarActivity extends AppCompatActivity implements MainFragment.MainFragmentListener {
 
     public static Intent newIntent(Context context) {
         return new Intent(context, TopBarActivity.class);
@@ -35,5 +36,10 @@ public class TopBarActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, fragment)
                 .commitNow();
+    }
+
+    @Override
+    public void onClickCategoryItem(Category category) {
+
     }
 }

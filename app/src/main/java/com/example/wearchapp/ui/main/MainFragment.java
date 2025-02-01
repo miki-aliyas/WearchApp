@@ -1,6 +1,7 @@
 package com.example.wearchapp.ui.main;
 //  ViewPager2 を使用してカルーセル表示を行い、自動スクロール機能を実装
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,11 +46,29 @@ public class MainFragment extends Fragment {
     private RecommendationAdapter adapter;  //  カテゴリリストを表示するためのアダプタ
     private Runnable runnable;  //  自動スクロールを実行するためのオブジェクト
     private final Handler handler = new Handler();  //  Runnable の実行を管理するためのオブジェクト
-    private int currentPage = 0;    //  現在のページを保持するための変数
+    private int currentPage = 0;
+
+    private MainFragmentListener carouseListener;
+
+    public interface MainFragmentListener {
+        void onClickCategoryItem(Category category);
+    }
 
     public static Fragment newInstance() {
         return new MainFragment();
     }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            carouseListener = (MainFragmentListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Must implement MainFragmentListener");
+        }
+
+    }
+
     //  フラグメントのビューを作成する
     @Nullable
     @Override
@@ -132,7 +151,11 @@ public class MainFragment extends Fragment {
         }
         carouselAdapter = new CarouselAdapter(new ArrayList<>());
         carouselAdapter.setListener(() -> {
-
+            // ボタンをクリックした際の処理
+            if (carouseListener != null) {
+                // TODO: 
+//                carouseListener.onClickCategoryItem();
+            }
         });
         viewPager.setAdapter(carouselAdapter);  // アダプタをセットしページ変更コールバックを登録
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
