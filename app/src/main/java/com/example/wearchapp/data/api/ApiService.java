@@ -1,6 +1,6 @@
-package com.example.wearchapp.date.api;
+package com.example.wearchapp.data.api;
 
-import com.example.wearchapp.date.model.Greeting;
+import com.example.wearchapp.data.model.Greeting;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

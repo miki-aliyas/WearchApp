@@ -1,4 +1,4 @@
-package com.example.wearchapp.date.model;
+package com.example.wearchapp.data.model;
 //挨拶に関する情報（IDと内容）を保持
 public class Greeting {
     private long id;

@@ -1,10 +1,9 @@
-package com.example.wearchapp.date.repository;
+package com.example.wearchapp.data.repository;
 //  RetrofitをしとうしてAPIから挨拶データを取得しその結果をコールバックを通じて呼び出し元に通知する仕組みを提供
-import android.util.Log;
 
-import com.example.wearchapp.date.api.ApiService;
-import com.example.wearchapp.date.api.RetrofitClient;
-import com.example.wearchapp.date.model.Greeting;
+import com.example.wearchapp.data.api.ApiService;
+import com.example.wearchapp.data.api.RetrofitClient;
+import com.example.wearchapp.data.model.Greeting;
 
 import retrofit2.Call;
 import retrofit2.Callback;

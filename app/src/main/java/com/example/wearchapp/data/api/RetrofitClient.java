@@ -1,4 +1,4 @@
-package com.example.wearchapp.date.api;
+package com.example.wearchapp.data.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

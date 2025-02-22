@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.wearchapp.R;
-import com.example.wearchapp.date.model.Category;
+import com.example.wearchapp.data.model.ClothesItem;
 import com.example.wearchapp.ui.main.MainFragment;
 
 public class TopBarActivity extends AppCompatActivity implements MainFragment.MainFragmentListener {
@@ -39,7 +39,7 @@ public class TopBarActivity extends AppCompatActivity implements MainFragment.Ma
     }
 
     @Override
-    public void onClickCategoryItem(Category category) {
+    public void onClickCategoryItem(ClothesItem clothesItem) {
 
     }
 }

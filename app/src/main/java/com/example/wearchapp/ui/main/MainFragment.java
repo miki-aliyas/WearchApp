@@ -2,7 +2,6 @@ package com.example.wearchapp.ui.main;
 //  ViewPager2 を使用してカルーセル表示を行い、自動スクロール機能を実装
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -20,12 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.wearchapp.R;
-import com.example.wearchapp.date.model.Category;
-import com.example.wearchapp.ui.detail.DetailFragment;
+import com.example.wearchapp.data.model.Category;
+import com.example.wearchapp.data.model.ClothesItem;
 import com.example.wearchapp.ui.main.adapter.CarouselAdapter;
 import com.example.wearchapp.ui.main.adapter.RecommendationAdapter;
-import com.example.wearchapp.ui.top.TopActivity;
-import com.example.wearchapp.ui.topbar.TopBarActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,7 +48,7 @@ public class MainFragment extends Fragment {
     private MainFragmentListener carouseListener;
 
     public interface MainFragmentListener {
-        void onClickCategoryItem(Category category);
+        void onClickCategoryItem(ClothesItem clothesItem);
     }
 
     public static Fragment newInstance() {
@@ -134,8 +131,8 @@ public class MainFragment extends Fragment {
                 //  カテゴリリストが取得できた場合、カルーセルアダプターに画像URLを設定
                 for (int i = 0; i < categories.size(); i++) {
                     String imageUrl = carouselAdapter.getImageUrl(i);
-                    if (!imageUrl.equals(categories.get(i).getPath())) {
-                        carouselAdapter.setImageUrl(categories.get(i).getPath(), i);
+                    if (!imageUrl.equals(categories.get(i).getImageName())) {
+                        carouselAdapter.setImageUrl(categories.get(i).getImageName(), i);
                         carouselAdapter.notifyItemChanged(i);
                     }
                 }
