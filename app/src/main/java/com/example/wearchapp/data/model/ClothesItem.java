@@ -3,6 +3,9 @@ package com.example.wearchapp.data.model;
 public class ClothesItem {
     //　ID
     private long id;
+    //　画像名
+    private String imageName;
+
     //　洋服名(String)
     private String clothesName;
     //　カテゴリー名
@@ -33,6 +36,12 @@ public class ClothesItem {
 
     public String getClothesName() {
         return clothesName;
+    }
+
+    public void setImageName(String imageName) { this.imageName = imageName;}
+
+    public String getImageName() {
+        return imageName;
     }
 
     public void setClothesName(String clothesName) {
@@ -103,8 +112,9 @@ public class ClothesItem {
         this.material = material;
     }
 //　コンストラクタ
-    public ClothesItem(long id, String clothesName, String categoryName, String sizeName, int length, int shoulderWidth, int sleeveLength, int sleeveWidth, int neckWidth, String material) {
+    public ClothesItem(long id, String imageName, String clothesName, String categoryName, String sizeName, int length, int shoulderWidth, int sleeveLength, int sleeveWidth, int neckWidth, String material) {
         this.id = id;
+        this.imageName = imageName;
         this.clothesName = clothesName;
         this.categoryName = categoryName;
         this.sizeName = sizeName;

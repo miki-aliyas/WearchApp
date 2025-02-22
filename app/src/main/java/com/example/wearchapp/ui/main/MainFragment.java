@@ -38,7 +38,14 @@ public class MainFragment extends Fragment {
     private CarouselAdapter carouselAdapter;    //  カルーセル表示を行うためのアダプタ
     private static final int CARD_WIDTH_DP = 140;   // カードの横幅（dp）
     private static final int CARD_HEIGHT_DP = 140;  // カードの縦幅（dp）
-    private static final List<Integer> INT_DATA_LIST = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);   // カテゴリリストのデータ
+    private static final List<ClothesItem> INT_DATA_LIST = Arrays.asList(  //  カテゴリリストのデータ
+            new ClothesItem(1,"tshirt_2", "tShirt", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
+            new ClothesItem(2,"longtshirt_2","longtShirt", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
+            new ClothesItem(3,"shirt_2", "Shirt", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
+            new ClothesItem(4,"cardigan_2","cardigan", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
+            new ClothesItem(5,"parker_2","parker", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
+            new ClothesItem(6,"jacket_2","jacket", "Outer", "FREE", 100, 100, 100, 100, 100, "" )
+    );
     private RecyclerView recyclerView;  //  カテゴリリストを表示する
     private RecommendationAdapter adapter;  //  カテゴリリストを表示するためのアダプタ
     private Runnable runnable;  //  自動スクロールを実行するためのオブジェクト
@@ -150,7 +157,6 @@ public class MainFragment extends Fragment {
         carouselAdapter.setListener(() -> {
             // ボタンをクリックした際の処理
             if (carouseListener != null) {
-                // TODO: 
 //                carouseListener.onClickCategoryItem();
             }
         });

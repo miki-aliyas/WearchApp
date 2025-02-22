@@ -17,14 +17,14 @@
         tools:targetApi="31">
         <activity
             android:name=".ui.topbar.TopBarActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".ui.top.TopActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.clothesItem.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

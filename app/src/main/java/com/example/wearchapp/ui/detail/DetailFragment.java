@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.wearchapp.R;
+import com.example.wearchapp.data.model.ClothesItem;
 import com.example.wearchapp.ui.main.MainFragment;
 import com.example.wearchapp.ui.main.adapter.CarouselAdapter;
 import com.example.wearchapp.ui.main.adapter.RecommendationAdapter;
@@ -29,8 +30,14 @@ public class DetailFragment extends Fragment {
     private CarouselAdapter carouselAdapter;    //  カルーセル表示を行うためのアダプタ
     private static final int CARD_WIDTH_DP = 140;   // カードの横幅（dp）
     private static final int CARD_HEIGHT_DP = 140;  // カードの縦幅（dp）
-    private static final List<Integer> INT_DATA_LIST = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);   // カテゴリリストのデータ
-    private RecyclerView recyclerView;  //  カテゴリリストを表示する
+    private static final List<ClothesItem> INT_DATA_LIST = Arrays.asList(
+            new ClothesItem(1, "", "tShirt", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
+            new ClothesItem(2, "","tShirt", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
+            new ClothesItem(3, "","tShirt", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
+            new ClothesItem(4, "","tShirt", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
+            new ClothesItem(5, "","tShirt", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
+            new ClothesItem(6, "","tShirt", "Tops", "FREE", 100, 100, 100, 100, 100, "" )
+    );    private RecyclerView recyclerView;  //  カテゴリリストを表示する
     private RecommendationAdapter adapter;  //  カテゴリリストを表示するためのアダプタ
     public static Fragment newInstance() {
         return new DetailFragment();

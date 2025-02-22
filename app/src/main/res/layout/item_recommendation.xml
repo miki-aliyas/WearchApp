@@ -18,7 +18,6 @@
             android:id="@+id/recommendation_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/longtshirt_2"
             android:scaleType="centerCrop"/>
     </FrameLayout>
 
