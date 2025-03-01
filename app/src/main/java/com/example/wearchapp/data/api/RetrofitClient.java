@@ -1,10 +1,11 @@
 package com.example.wearchapp.data.api;
 
+import static com.example.wearchapp.data.Constants.BASE_URL;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    private static final String BASE_URL = "http://192.168.11.10:8080";
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance() {

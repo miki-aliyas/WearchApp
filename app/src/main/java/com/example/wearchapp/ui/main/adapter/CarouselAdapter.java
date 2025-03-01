@@ -1,5 +1,7 @@
 package com.example.wearchapp.ui.main.adapter;
 //  RecyclerViewを使用してカルーセル表示する
+import static com.example.wearchapp.data.Constants.IMAGE_PATH;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,10 +40,10 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.Carous
     @Override
     public void onBindViewHolder(@NonNull CarouselAdapter.CarouselViewHolder holder, int position) {
         String imageName = imageUrls.get(position); // 現在の画像名を取得
-        Context context = holder.itemView.getContext(); // コンテキストを取得
-        int resId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());   // 画像リソースIDを取得
-        Glide.with(holder.itemView.getContext())
-                .load(resId)
+        Context context = holder.itemView.getContext(); // コンテキストを取得categoryList
+        String imageUrl = IMAGE_PATH + imageName;
+        Glide.with(context)
+                .load(imageUrl)
                 .into(holder.imageView);    // 画像をImageViewにセット
         holder.imageView.setOnClickListener(v -> {
             if (listener != null) {
