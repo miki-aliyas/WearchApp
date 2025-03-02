@@ -19,8 +19,8 @@ import java.util.List;
 public class MainViewModel extends ViewModel {
 
     private final MutableLiveData<Greeting> content = new MutableLiveData<>(null);  //  Greeting オブジェクトを保持。初期値はnull
-    private final MutableLiveData<List<Category>> categoryList = new MutableLiveData<>(new ArrayList<>());  //  オブジェクトのリストを保持。初期値は空のリスト
-    private CategoryRepository categoryRepository;  //  挨拶データのリポジトリを管理
+    private final MutableLiveData<List<Category>> categoryList = new MutableLiveData<>(new ArrayList<>());  //  カテゴリリストを保持。初期値は空リスト
+    private CategoryRepository categoryRepository;  //  カテゴリリストを取得するためのリポジトリ
 
     public MainViewModel() {
         categoryRepository = new CategoryRepository();
@@ -33,8 +33,8 @@ public class MainViewModel extends ViewModel {
         return content;
     }
 
+//    カテゴリリストを取得するためのAPIリクエストを実行
     public void loadCategoryList() {
-        //  カテゴリリストを設定
         if (categoryRepository == null) {   //  nullの場合はエラーログを出力して終了
             Log.e("error", "GreetingRepository in null");
             return;

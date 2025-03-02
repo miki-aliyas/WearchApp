@@ -1,5 +1,5 @@
 package com.example.wearchapp.ui.detail;
-//クティビティの一部として再利用可能なUI部品を定義する
+//アクティビティの一部として再利用可能なUI部品を定義する
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -19,10 +19,12 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.Carous
 
     private List<String> imageUrls; // 画像のURLリスト
     private CarouselAdapterListener listener;  // クリックイベントのリスナー
+
     // クリックイベントをリスンするためのインターフェースを定義
     public interface CarouselAdapterListener {
         void onClickCarouselItem();
     }
+
     // コンストラクター: 画像URLのリストの初期化
     public CarouselAdapter(List<String> imageUrls) {
         this.imageUrls = imageUrls;
@@ -51,6 +53,7 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.Carous
             }
         });
     }
+
     // アダプタのアイテム数を返すメソッド
     @Override
     public int getItemCount() {
@@ -76,6 +79,7 @@ public class CarouselAdapter extends RecyclerView.Adapter<CarouselAdapter.Carous
     public void setListener(CarouselAdapterListener listener) {
         this.listener = listener;
     }
+
     //  画像を表示するためのビューを保持
     static class CarouselViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;

@@ -21,6 +21,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.wearchapp.R;
 import com.example.wearchapp.data.model.Category;
 import com.example.wearchapp.data.model.ClothesItem;
+import com.example.wearchapp.data.repository.CategoryRepository;
+import com.example.wearchapp.data.repository.ClothesItemRepository;
 import com.example.wearchapp.ui.main.adapter.CarouselAdapter;
 import com.example.wearchapp.ui.main.adapter.RecommendationAdapter;
 
@@ -29,7 +31,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 public class MainFragment extends Fragment {
-
     private static final String TAG = MainFragment.class.getSimpleName();   //  ログ出力用のタグ
     private static final long DISPLAY_TIME = 3000L; //  カルーセルの表示時間（ミリ秒）
     private MainViewModel viewModel;    //  MainViewModel のインスタンス
@@ -50,17 +51,19 @@ public class MainFragment extends Fragment {
     private RecommendationAdapter adapter;  //  カテゴリリストを表示するためのアダプタ
     private Runnable runnable;  //  自動スクロールを実行するためのオブジェクト
     private final Handler handler = new Handler();  //  Runnable の実行を管理するためのオブジェクト
-    private int currentPage = 0;
+    private int currentPage = 0;    //  現在のページ番号
 
     private MainFragmentListener carouseListener;
 
+    private ClothesItemRepository clothesItemRepository;  //  服アイテム情報を取得するためのリポジトリ
+
+    public MainFragment() {clothesItemRepository = new ClothesItemRepository();}
+
+    //  カルーセルアイテムがクリックされた際のリスナー
     public interface MainFragmentListener {
         void onClickCategoryItem(ClothesItem clothesItem);
     }
-
-    public static Fragment newInstance() {
-        return new MainFragment();
-    }
+    public static Fragment newInstance() { return new MainFragment();}
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -72,14 +75,13 @@ public class MainFragment extends Fragment {
         }
 
     }
-
     //  フラグメントのビューを作成する
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
-    //  フラグメントのビューを作成後に呼び出されるメソッド
+    //  フラグメントが作成されたときに呼び出されるメソッド
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -160,7 +162,7 @@ public class MainFragment extends Fragment {
 //                carouseListener.onClickCategoryItem();
             }
         });
-        viewPager.setAdapter(carouselAdapter);  // アダプタをセットしページ変更コールバックを登録
+        viewPager.setAdapter(carouselAdapter);  // ViewPagerにAdapterを設定
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
