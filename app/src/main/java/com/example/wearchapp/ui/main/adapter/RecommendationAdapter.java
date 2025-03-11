@@ -1,6 +1,9 @@
 package com.example.wearchapp.ui.main.adapter;
 
+import static com.example.wearchapp.data.Constants.IMAGE_PATH;
+
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +21,11 @@ import com.example.wearchapp.data.model.ClothesItem;
 import java.util.List;
 
 public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAdapter.ViewHolder> {
-    private List<ClothesItem> dataList; //  カテゴリリストのデータ
+    private List<ClothesItem> dataList; //  服アイテムリスト
     private int cardWidth;  //  カードの横幅
     private int cardHeight; //  カードの縦幅
     public RecommendationAdapter(List<ClothesItem> dataList, int cardWidth, int cardHeight) {   //  コンストラクタ
-        this.dataList = dataList;   //  カテゴリリストのデータを初期化
+        this.dataList = dataList;   //  服アイテムリストを初期化
         this.cardWidth = cardWidth; //  カードの横幅を初期化
         this.cardHeight = cardHeight; //  カードの縦幅を初期化
     }
@@ -50,19 +53,39 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
         return new ViewHolder(view);
     }
 
+    // ViewHolderにデータをバインド、画像を表示後、クリックイベントを設定するメソッド
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-    //  カテゴリリストのデータを取得
-       ClothesItem currentItem = dataList.get(position);
-    //　画像名からリソースIDを取得
-       Context context = holder.itemView.getContext();
-         int resId = context.getResources().getIdentifier(currentItem.getImageName(), "drawable", context.getPackageName());
-    // 画像を設定
-        Glide.with(context).load(resId).into(holder.image);
+        ClothesItem currentItem = dataList.get(position);
+        String imageName = currentItem.getImageName();
+        Context context = holder.itemView.getContext();
+        String imageUrl = IMAGE_PATH + imageName;
+        Log.d("RecommendationAdapter", "imageUrl=" + imageUrl);
+        Glide.with(context)
+             .load(imageUrl)
+             .into(holder.image);
+        holder.image.setOnClickListener(v -> {
+            // TODO　画像タップ処理
+        });
     }
-    //  リストに表示するアイテム数を返すメソッド
+    //  アダプタのアイテム数を返すメソッド
     @Override
     public int getItemCount() {
         return dataList.size();
+    }
+
+    // 指定位置の洋服アイテムを返すメソッド
+    public ClothesItem getClothesItem(int position) {
+        if (dataList.size() > position) {
+            return dataList.get(position);
+        }
+        return null;
+    }
+    public void setClothesItem(ClothesItem item, int position) {
+        if (dataList.size() > position) {
+            dataList.set(position, item);
+        } else {
+            dataList.add(item);
+        }
     }
 }

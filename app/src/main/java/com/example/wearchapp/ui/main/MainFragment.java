@@ -51,10 +51,8 @@ public class MainFragment extends Fragment {
     private RecommendationAdapter adapter;  //  カテゴリリストを表示するためのアダプタ
     private Runnable runnable;  //  自動スクロールを実行するためのオブジェクト
     private final Handler handler = new Handler();  //  Runnable の実行を管理するためのオブジェクト
-    private int currentPage = 0;    //  現在のページ番号
-
-    private MainFragmentListener carouseListener;
-
+    private int currentPage = 0;    //  現在のページ番号\
+    private MainFragmentListener carouseListener; //  カルーセルアイテムがクリックされた際のリスナー
     private ClothesItemRepository clothesItemRepository;  //  服アイテム情報を取得するためのリポジトリ
 
     public MainFragment() {clothesItemRepository = new ClothesItemRepository();}
@@ -119,6 +117,7 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         viewModel.loadCategoryList();   //  カテゴリリストを取得するメソッドの呼び出し
+        viewModel.loadClothesItemList();    //  服アイテムリストを取得するメソッドの呼び出し
         startAutoScroll();  //  自動スクロールを開始するメソッドの呼び出し
     }
     //  ポインターリセット
@@ -132,9 +131,8 @@ public class MainFragment extends Fragment {
     private void settingViewModel() {
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        //  LiveDateの監視設定
+        //  カテゴリリストの監視設定
         viewModel.getCategoryList().observe(requireActivity(), new Observer<List<Category>>() {
-
             @Override
             public void onChanged(List<Category> categories) {
                 //  カテゴリリストが取得できた場合、カルーセルアダプターに画像URLを設定
@@ -143,6 +141,20 @@ public class MainFragment extends Fragment {
                     if (!imageUrl.equals(categories.get(i).getImageName())) {
                         carouselAdapter.setImageUrl(categories.get(i).getImageName(), i);
                         carouselAdapter.notifyItemChanged(i);
+                    }
+                }
+            }
+        });
+
+        //  服アイテムリストの監視設定
+        viewModel.getClothesItemList().observe(requireActivity(), new Observer<List<ClothesItem>>() {
+            @Override
+            public void onChanged(List<ClothesItem> clothesItems) {
+                for (int i = 0; i < clothesItems.size(); i++) {
+                    ClothesItem clothesItem = adapter.getClothesItem(i);
+                    if (clothesItem != clothesItems.get(i)) {
+                        adapter.setClothesItem(clothesItems.get(i), i);
+                        adapter.notifyItemChanged(i);
                     }
                 }
             }

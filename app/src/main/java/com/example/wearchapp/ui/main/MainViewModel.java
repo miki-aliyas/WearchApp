@@ -35,6 +35,7 @@ public class MainViewModel extends ViewModel {
     }
     //  服アイテムリストを取得するためのAPIリクエストを実行
     public LiveData<List<ClothesItem>> getClothesItemList() {return clothesItemList;}
+
     public void loadCategoryList() {
         if (categoryRepository == null) {   //  nullの場合はエラーログを出力して終了
             Log.e("error", "CategoryRepository in null");
@@ -52,7 +53,6 @@ public class MainViewModel extends ViewModel {
             }
         });
     }
-
     public void loadClothesItemList() {
         if (clothesItemRepository == null) {   //  nullの場合はエラーログを出力して終了
             Log.e("error", "ClothesItemRepository in null");
@@ -64,7 +64,6 @@ public class MainViewModel extends ViewModel {
                 Log.d("success", "onSuccess=" + clothesItems.get(0).getImageName());
                 clothesItemList.setValue(clothesItems);
             }
-
             @Override
             public void onError(String error) {
                 Log.e("error",error);
