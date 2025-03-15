@@ -3,18 +3,25 @@ package com.example.wearchapp.ui.main.adapter;
 import static com.example.wearchapp.data.Constants.IMAGE_PATH;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.wearchapp.R;
 import com.example.wearchapp.data.model.ClothesItem;
 
@@ -33,10 +40,12 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;  //  カードの画像を表示するためのImageView
         CardView cardView;  //  カードを表示するためのCardView
+        ProgressBar progressBar; // ロード中に表示するためのプログレスバー
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.recommendation_card);  //  カードのレイアウトを取得
-            image = itemView.findViewById(R.id.recommendation_image);    //  カードの画像を取得
+            image = itemView.findViewById(R.id.recommendation_image);
+            progressBar = itemView.findViewById(R.id.progress); //  カードの画像を取得
 
             ViewGroup.LayoutParams layoutParams = cardView.getLayoutParams();  // カードのレイアウトを取得
             layoutParams.width = cardWidth;     // カードの横幅を設定
@@ -63,6 +72,21 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
         Log.d("RecommendationAdapter", "imageUrl=" + imageUrl);
         Glide.with(context)
              .load(imageUrl)
+            .listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, @Nullable Object model, @NonNull Target<Drawable> target, boolean isFirstResource) {
+                    // 読込み失敗時の処理
+                    holder.progressBar.setVisibility(View.GONE);
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(@NonNull Drawable resource, @NonNull Object model, Target<Drawable> target, @NonNull DataSource dataSource, boolean isFirstResource) {
+                    // 画像の読込みが完了
+                    holder.progressBar.setVisibility(View.GONE);
+                    return false;
+                }
+            })
              .into(holder.image);
         holder.image.setOnClickListener(v -> {
             // TODO　画像タップ処理

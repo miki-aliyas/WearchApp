@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDE9E9"
-    tools:context=".ui.main.MainActivity">
+    android:background="#EDE9E9">
 
     <ImageView
         android:layout_width="314dp"
@@ -14,7 +13,7 @@
         android:layout_gravity="center"
         android:src="@drawable/top" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,7 +23,8 @@
         android:textStyle="bold"
         android:textSize="20sp"
         android:textColor="@color/darkbrown"
-        android:backgroundTint="#E7E0D1"
+        android:background="#E7E0D1"
+        android:paddingHorizontal="16dp"
         android:onClick="clicked" />
 
 </FrameLayout>

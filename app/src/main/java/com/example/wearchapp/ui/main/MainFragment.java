@@ -39,23 +39,12 @@ public class MainFragment extends Fragment {
     private CarouselAdapter carouselAdapter;    //  カルーセル表示を行うためのアダプタ
     private static final int CARD_WIDTH_DP = 140;   // カードの横幅（dp）
     private static final int CARD_HEIGHT_DP = 140;  // カードの縦幅（dp）
-    private static final List<ClothesItem> clothesItemList = Arrays.asList(  //  服アイテムリスト
-            new ClothesItem(1,"tshirt_2", "tShirt", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
-            new ClothesItem(2,"longtshirt_2","longtShirt", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
-            new ClothesItem(3,"shirt_2", "Shirt", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
-            new ClothesItem(4,"cardigan_2","cardigan", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
-            new ClothesItem(5,"parker_2","parker", "Tops", "FREE", 100, 100, 100, 100, 100, "" ),
-            new ClothesItem(6,"jacket_2","jacket", "Outer", "FREE", 100, 100, 100, 100, 100, "" )
-    );
     private RecyclerView recyclerView;  //  カテゴリリストを表示する
     private RecommendationAdapter adapter;  //  カテゴリリストを表示するためのアダプタ
     private Runnable runnable;  //  自動スクロールを実行するためのオブジェクト
     private final Handler handler = new Handler();  //  Runnable の実行を管理するためのオブジェクト
     private int currentPage = 0;    //  現在のページ番号\
     private MainFragmentListener carouseListener; //  カルーセルアイテムがクリックされた際のリスナー
-    private ClothesItemRepository clothesItemRepository;  //  服アイテム情報を取得するためのリポジトリ
-
-    public MainFragment() {clothesItemRepository = new ClothesItemRepository();}
 
     //  カルーセルアイテムがクリックされた際のリスナー
     public interface MainFragmentListener {
@@ -193,7 +182,7 @@ public class MainFragment extends Fragment {
         );
         float dp = getResources().getDisplayMetrics().density;
         // Adapterの生成（インスタンス化）
-        adapter = new RecommendationAdapter(clothesItemList, (int)(CARD_WIDTH_DP * dp), (int)(CARD_HEIGHT_DP * dp));
+        adapter = new RecommendationAdapter(new ArrayList<>(), (int)(CARD_WIDTH_DP * dp), (int)(CARD_HEIGHT_DP * dp));
         // RecyclerViewにAdapterを設定
         recyclerView.setAdapter(adapter);
         // RecyclerViewにLayoutManagerを設定

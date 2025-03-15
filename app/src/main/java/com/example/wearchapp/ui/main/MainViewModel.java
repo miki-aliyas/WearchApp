@@ -8,13 +8,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.wearchapp.data.model.Category;
 import com.example.wearchapp.data.model.ClothesItem;
-import com.example.wearchapp.data.model.Greeting;
 import com.example.wearchapp.data.repository.CategoryRepository;
 import com.example.wearchapp.data.repository.ClothesItemRepository;
-import com.example.wearchapp.data.repository.GreetingRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainViewModel extends ViewModel {
